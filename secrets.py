@@ -1,0 +1,7 @@
+DISCORD_TOKEN = "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"
+GENIUS_TOKEN = "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"
+MEME_USERNAME = "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"
+MEME_PASSWORD = "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"
+REDDIT_ID = "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"
+REDDIT_SECRET = "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"
+GIPHY_TOKEN ="xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"

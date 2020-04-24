@@ -1,9 +1,14 @@
+import discord
 from io import BytesIO
 from pydub import AudioSegment
 import math
 import requests
 import random
 import string
+import unicodedata
+def remove_accents(input_str):
+    nfkd_form = unicodedata.normalize('NFKD', input_str)
+    return u"".join([c for c in nfkd_form if not unicodedata.combining(c)])
 def downloadImage(pic_url):
     name = randomString()
     print(pic_url)
@@ -40,7 +45,8 @@ def audio_segment_to_voice(segment: AudioSegment) -> BytesIO:
     b = BytesIO()
     segment.export(b, format = "ogg", codec = "libopus")
     return b
-def audio_segment_to_voice_mp3(segment: AudioSegment) -> BytesIO:
+def audio_segment_to_voice_mp3(segment: AudioSegment) -> discord.File:
     b = BytesIO()
     segment.export('text.mp3', format = "mp3", codec = "mp3")
-    return b
+    file =  discord.File('text.mp3')
+    return file
