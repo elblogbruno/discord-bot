@@ -7,33 +7,33 @@ from secrets import REDDIT_SECRET
 reddit = praw.Reddit(client_id=REDDIT_ID,
                      client_secret=REDDIT_SECRET,
                      user_agent='Comment Extraction (by /u/USERNAME)')
-async def reddit_interact(query,channel):
+async def reddit_interact(channel,args):
 
     post_list = [ ]
-    subreddit = reddit.subreddit(query.split()[1])
+    subreddit = reddit.subreddit(args[0])
     await channel.send("Subreddit name: " + subreddit.display_name)  # Output: redditdev
     await channel.send("Subreddit title: " +subreddit.title)         # Output: reddit Development
     await channel.send("Subreddit description " +subreddit.description)   # Output: A subreddit for discussion of ...
-    await channel.send("Gonna send you " + query.split()[2] + " memes from "+subreddit.description)
+    await channel.send("Gonna send you " + args[1] + " memes from "+subreddit.display_name)
     category = "hot"
-    if len(query.split()) < 3:
+    if len(args) < 3:
         category = "hot"
-        post_list = reddit.subreddit(query.split()[1]).hot(limit=int(query.split()[2]))
+        post_list = reddit.subreddit(args[0]).hot(limit=int(args[1]))
     else:
-        if query.split()[3] == "top":
-            post_list = reddit.subreddit(query.split()[1]).top(limit=int(query.split()[2]))
-        if query.split()[3] == "rising":
+        if args[2] == "top":
+            post_list = reddit.subreddit(args[0]).top(limit=int(args[1]))
+        if args[2] == "rising":
             category = "rising"
-            post_list = reddit.subreddit(query.split()[1]).rising(limit=int(query.split()[2]))
-        if query.split()[3] == "best":
+            post_list = reddit.subreddit(args[0]).rising(limit=int(args[1]))
+        if args[2] == "best":
             category = "best"
-            post_list = reddit.subreddit(query.split()[1]).best(limit=int(query.split()[2]))
-        if query.split()[3] == "new":
+            post_list = reddit.subreddit(args[0]).best(limit=int(args[1]))
+        if args[2] == "new":
             category = "new"
-            post_list = reddit.subreddit(query.split()[1]).new(limit=int(query.split()[2]))
-        if query.split()[3] == "hot":
+            post_list = reddit.subreddit(args[0]).new(limit=int(args[1]))
+        if args[2] == "hot":
             category = "hot"
-            post_list = reddit.subreddit(query.split()[1]).hot(limit=int(query.split()[2]))
+            post_list = reddit.subreddit(args[0]).hot(limit=int(args[1]))
     
     await channel.send("Choosing " + category + " memes")
     for submission in post_list:

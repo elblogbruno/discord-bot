@@ -3,38 +3,27 @@ import random
 import os
 import discord
 from utils import downloadImage
-import re 
-import string 
-from parse import compile
+import re
+import string
 from secrets import MEME_USERNAME
 from secrets import MEME_PASSWORD
-async def meme_interact(message,channel):
+async def meme_interact(args,channel):
     # api-endpoint 
     CAPTION_URL = "https://api.imgflip.com/caption_image"
 
-    print(message.split("'"))
-    a_list = message.split("'")
-    without_empty_strings = []
-    #for string in a_list:
-    #    if (string != " " and string != ""):
-    #        without_empty_strings.append(string)
-    ##print (without_empty_strings)
-    without_empty_strings = ' '.join(a_list).split()
-    print (without_empty_strings)
     template_id = "112126428"
-    print(len(without_empty_strings))
-    if len(without_empty_strings) == 3:
+    if len(args) == 2:
         await channel.send("Getting random meme template")
         template_id = getRandomMemeId() #"112126428"
-    elif without_empty_strings[3].isdecimal() == False:
-        await channel.send("Getting " + without_empty_strings[3] + " meme template")
-        template_id = getMemeId(without_empty_strings[3]) #"112126428"
-    elif without_empty_strings[3].isdecimal():
-        template_id =  without_empty_strings[3]
+    elif args[2].isdecimal() == False:
+        await channel.send("Getting " + args[2] + " meme template")
+        template_id = getMemeId(args[2]) #"112126428"
+    elif args[2].isdecimal():
+        template_id =  args[2]
     username = MEME_USERNAME
     password = MEME_PASSWORD
-    text0 = without_empty_strings[1]
-    text1 = without_empty_strings[2]
+    text0 = args[0]
+    text1 = args[1]
     # defining a params dict for the parameters to be sent to the API 
     PARAMS = {'template_id':template_id,'username':username,'password':password,'text0':text0,'text1':text1}
     

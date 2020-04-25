@@ -5,24 +5,18 @@ from loquendo_api_tss import loquendo_interact
 from secrets import GENIUS_TOKEN
 genius = lyricsgenius.Genius(GENIUS_TOKEN)
 #genius.verbose = False
-async def genius_interact(message,channel,author,client):
-      #artist = genius.search_artist("Karol G", max_songs=3, sort="title")
-     print(message.split("'"))
-     a_list = message.split("'")
-     without_empty_strings = [x for x in a_list if x]
-     print(without_empty_strings)
-     if len(without_empty_strings) > 1:
-        name = without_empty_strings[1]
+async def genius_interact(args,channel,author,client):
+     if len(args) > 1:
+        name = args[0]
         song = ""
-        if len(without_empty_strings) > 3:
-            without_empty_strings =  [string for string in without_empty_strings if string != "" and string != " "]
-            print(without_empty_strings)
-            artist_name =without_empty_strings[2]
+        if len(args) > 2:
+            artist_name = args[1]
             await channel.send("Searching song {0} by {1}".format(name,artist_name))
             song = genius.search_song(name,artist_name)
         else:
             await channel.send("Searching song {0}".format(name))
             song = genius.search_song(name)
+            
         print("Song lenght {0}".format(len(song.lyrics)))
         wrapper = textwrap.TextWrapper(width=100)
         lyrics = song.lyrics

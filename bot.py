@@ -13,39 +13,45 @@ from reddit import reddit_interact
 from meme_api import  meme_interact
 from giphy_api import giphy_interact
 from genius_api import genius_interact
-class MyClient(discord.Client):
-    async def on_ready(self):
-        print('Logged on as {0}!'.format(self.user))
-    async def on_message(self, message):
+from discord.ext import commands
+bot = commands.Bot(command_prefix='', description='A bot that greets the user back.')
+
+@bot.command()
+async def greet(ctx):
+      await ctx.send(":smiley: :wave: Hello, there!")
+@bot.command()
+async def chucknorris(ctx):
+      await ctx.send('A chuck norris joke is coming for you!')
+      # Get random jokes.
+      data = cn.random()
+      await ctx.send(data)
+@bot.command()
+async def yomama(ctx):
+      await ctx.send("I'll send a yo mama joke")
+      with open("jokes.txt",'r',encoding = 'utf-8') as f:
+            lines = f.readlines()
+            await ctx.send(random.choice(lines))
+@bot.command()
+async def say(ctx, arg1):
+      await loquendo_interact(arg1,ctx.message.channel,False)
+@bot.command()
+async def reddit(ctx,*args):
+      await reddit_interact(ctx.message.channel,args)
+@bot.command()
+async def meme(ctx,*args):
+      await meme_interact(args,ctx.message.channel)
+@bot.command()
+async def gif(ctx,*args):
+      await giphy_interact(args,ctx.message.channel)
+@bot.command()
+async def genius(ctx,*args):
+      await genius_interact(args,ctx.message.channel,ctx.message.author,client)
+
+@bot.event
+async def on_ready():
+      print("Bot is ready")
+@bot.event
+async def on_message(self, message):
       print('Message from {0.author}'.format(message))
-      #content = message.content.encode('ascii', 'ignore').decode('ascii')
-      content = remove_accents(message.content)
-      print('Message {0}'.format(content.encode('utf-8')))
-      channel = message.channel
-      if message.author.bot == False:
-            if message.content.lower() == "help":
-                  await channel.send('Available commands: -chuck norris -say x -yo mama')
-            if message.content.lower() == "chuck norris":
-                  await channel.send('A chuck norris joke is coming for you!')
-                  # Get random jokes.
-                  data = cn.random()
-                  await channel.send(data)
-            if message.content.lower() == "yo mama":
-                  await channel.send("I'll send a yo mama joke")
-                  with open("jokes.txt",'r',encoding = 'utf-8') as f:
-                        lines = f.readlines()
-                        await channel.send(random.choice(lines))
-            if message.content.split()[0].lower() == "say":
-                  await loquendo_interact(content,channel,False)
-            if message.content.split()[0].lower() == "reddit":
-                  await reddit_interact(content,channel)
-            if message.content.split()[0].lower() == "meme":
-                  await meme_interact(content,channel)
-            if message.content.split()[0].lower() == "gif":
-                  await giphy_interact(content,channel)
-            if message.content.split()[0].lower() == "genius":
-                  await genius_interact(content,channel,message.author,client)
-      else:
-            print("bot can't send messages as a user")
-client = MyClient()
-client.run(DISCORD_TOKEN)
+
+bot.run(DISCORD_TOKEN)
