@@ -1,7 +1,7 @@
 import lyricsgenius
 import discord
 import textwrap
-from loquendo_api_tss import loquendo_interact
+from core.loquendo_api_tss import loquendo_interact
 from secrets import GENIUS_TOKEN
 genius = lyricsgenius.Genius(GENIUS_TOKEN)
 #genius.verbose = False

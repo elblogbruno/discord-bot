@@ -2,7 +2,7 @@ from gtts import gTTS
 from io import BytesIO
 from pydub import AudioSegment
 from tempfile import NamedTemporaryFile
-from utils import overlay_sound_perfect_loop
+from core.utils import overlay_sound_perfect_loop
 
 def tts(text: str, lang: str) -> AudioSegment:
     bytes_io = BytesIO()

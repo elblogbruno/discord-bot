@@ -2,7 +2,7 @@ import requests
 import random
 import os
 import discord
-from utils import downloadImage
+from core.utils import downloadImage
 import re
 import string
 from secrets import MEME_USERNAME

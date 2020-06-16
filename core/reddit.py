@@ -1,7 +1,7 @@
 import os
 import praw
 import discord
-from utils import downloadImage
+from core.utils import downloadImage
 from secrets import REDDIT_ID
 from secrets import REDDIT_SECRET
 reddit = praw.Reddit(client_id=REDDIT_ID,
@@ -38,14 +38,18 @@ async def reddit_interact(channel,args):
         await channel.send("Choosing " + category + " memes")
         for submission in post_list:
             print(str(submission.title.encode('utf-8')))
-            if "jpg" in submission.url:
-                    await channel.send(str(submission.title))
-                    await channel.send("------------------")
-                    name = downloadImage(submission.url)
-                    await channel.send(file=discord.File("images/"+name+'.jpg'))
-                    os.remove("images/"+name+'.jpg')
-            else:
-                    await channel.send(str(submission.title) + "- There's no meme available for this subreddit post")
-                    await channel.send("------------------")
+            await channel.send(str(submission.title))
+            await channel.send("------------------")
+            await channel.send(submission.url)
+            # if "jpg" in submission.url:
+            #         await channel.send(str(submission.title))
+            #         await channel.send("------------------")
+            #         #name = downloadImage(submission.url)
+            #         #await channel.send(file=discord.File("images/"+name+'.jpg'))
+            #         await channel.send(submission.url)
+            #         #os.remove("images/"+name+'.jpg')
+            # else:
+            #         await channel.send(str(submission.title) + "- There's no meme available for this subreddit post")
+            #         await channel.send("------------------")
     else:
         await channel.send("Please tell me the subreddit name: reddit 'name' 'limit (optional)' 'type(optional)'")

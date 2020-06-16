@@ -1,6 +1,6 @@
-from config import GTTS_LANGUAGE
-from tts import loquendo_tts
-from utils import audio_segment_to_voice_mp3
+from core.config import GTTS_LANGUAGE
+from core.tts import loquendo_tts
+from core.utils import audio_segment_to_voice_mp3
 import asyncio
 from discord.voice_client import VoiceClient
 from gtts import gTTS

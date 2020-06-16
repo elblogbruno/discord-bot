@@ -9,16 +9,16 @@ from chuck import ChuckNorris
 cn = ChuckNorris()
 
 
-from utils import remove_accents
+from core.utils import remove_accents
 from secrets import DISCORD_TOKEN
-from loquendo_api_tss import loquendo_interact
-from reddit import reddit_interact
-from meme_api import  meme_interact
-from giphy_api import giphy_interact
-from genius_api import genius_interact
-from wikipedia_api import wikipedia_interact
-from youtube_api import youtube_interact
-from youtube_cutter_api import youtube_cutter_interact
+from core.loquendo_api_tss import loquendo_interact
+from core.reddit import reddit_interact
+from core.meme_api import  meme_interact
+from core.giphy_api import giphy_interact
+from core.genius_api import genius_interact
+from core.wikipedia_api import wikipedia_interact
+from core.youtube_api import youtube_interact
+from core.youtube_cutter_api import youtube_cutter_interact
 # from tiktok_api import tiktok_interact
 
 
