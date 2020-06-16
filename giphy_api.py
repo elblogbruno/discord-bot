@@ -17,12 +17,11 @@ fmt = 'json' # str | Used to indicate the expected response format. Default is J
 
 async def giphy_interact(args,channel):
    
-    if len(args) > 1:
-
-        if len(args) == 2: #only gif name and limit passed
+    if len(args) > 0:
+        if len(args) > 1: #only gif name and limit passed
             limit = int(args[1])
             lang = 'en'
-        elif len(args) == 4: #gif name and limit and language
+        elif len(args) > 2: #gif name and limit and language
             limit = int(args[1])
             lang = args[2]
         else:
@@ -31,6 +30,9 @@ async def giphy_interact(args,channel):
         try:
             # Search Endpoint
             q = args[0]
+            print ("Searching for gif {0} in {1} language".format(q,lang))
+            print ("Gonna send you {0} gif(s)".format(limit))
+
             await channel.send("Searching for gif {0} in {1} language".format(q,lang))
             await channel.send("Gonna send you {0} gif(s)".format(limit))
             api_response = api_instance.gifs_search_get(api_key, q, limit=limit, offset=offset, rating=rating, lang=lang, fmt=fmt)

@@ -5,3 +5,5 @@ discord.py
 giphy_client
 praw
 chuck-norris-python
+youtube-dl
+wikipedia

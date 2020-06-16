@@ -6,6 +6,7 @@ import requests
 import random
 import string
 import unicodedata
+import os
 def remove_accents(input_str):
     nfkd_form = unicodedata.normalize('NFKD', input_str)
     return u"".join([c for c in nfkd_form if not unicodedata.combining(c)])
@@ -50,3 +51,29 @@ def audio_segment_to_voice_mp3(segment: AudioSegment) -> discord.File:
     segment.export('text.mp3', format = "mp3", codec = "mp3")
     file =  discord.File('text.mp3')
     return file
+def cut_song(songPlace,name,timeStart,timeEnd):
+    print(songPlace + " " + name + timeStart + timeEnd)
+
+    startMin = int(timeStart.split(":")[0])
+    startSec = int(timeStart.split(":")[1])
+
+    endMin = int(timeEnd.split(":")[0])
+    endSec = int(timeEnd.split(":")[1])
+    # Time to miliseconds
+    startTime = startMin*60*1000+startSec*1000
+    endTime = endMin*60*1000+endSec*1000
+    print(str(startTime) + " "+ str(endTime))
+    #finalPlace = songPlace + ".mp3"
+    if os.path.isfile(songPlace):
+        song = AudioSegment.from_mp3(songPlace)
+        extract = song[startTime:endTime]
+        # Saving
+        extract.export("sonidos/"+name + "-cut.mp3", format="mp3")
+    elif os.path.isfile(songPlace):
+        #finalPlace = songPlace+".m4a"
+        song = AudioSegment.from_file(songPlace,format='m4a')
+        extract = song[startTime:endTime]
+        # Saving
+        extract.export("sonidos/"+name + "-cut.mp3", format="mp3")
+    os.remove(songPlace)
+    return True
